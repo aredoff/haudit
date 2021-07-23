@@ -1,0 +1,25 @@
+{
+  "queries":
+  [
+    {"command": "cat /proc/meminfo",
+      "name": "Memory",
+      "params": [
+        {
+          "name": "MemTotal",
+          "regex": "MemTotal:\\s+(\\d+)\\s+kB"
+        },
+        {
+          "name": "MemFree",
+          "regex": "MemFree:\\s+(\\d+)\\s+kB"
+        },
+        {
+          "name": "MemAvailable",
+          "regex": "MemAvailable:\\s+(\\d+)\\s+kB"
+        }
+      ],
+      "mods": [
+        "ram"
+      ]
+    }
+  ]
+}

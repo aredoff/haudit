@@ -1,0 +1,15 @@
+{
+  "queries":
+  [
+    {"command": "nginx -T",
+      "name": "nginx",
+      "params": [
+        {
+          "name": "worker_processes",
+          "regex": "worker_processes\\s+(.+);",
+          "normal_states": ["auto"]
+        }
+      ]
+    }
+  ]
+}

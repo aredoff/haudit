@@ -1,0 +1,15 @@
+{
+  "queries":
+  [
+    {"command": "cat /proc/cpuinfo | grep processor | wc -l",
+      "name": "CPU",
+      "params": [
+        {
+          "name": "Count",
+          "regex": "(\\d+)",
+          "warn_formula": "val>3 or val<0"
+        }
+      ]
+    }
+  ]
+}

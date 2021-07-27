@@ -1,12 +1,17 @@
 from audit import Audit
-from dotenv import load_dotenv
-import os
+from ssh import SSHUtil
+import argparse
 
-load_dotenv()
-ssh_user = os.getenv('SSH_USER')
-ssh_password = os.getenv('SSH_PASSWORD')
-test_hostname = os.getenv('TEST_HOSTNAME')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Audit linux systems')
+    parser.add_argument('-s', '--server', required=True, type=str, help='Hostname or ip address')
+    parser.add_argument('-u', '--user', type=str, default='root', help='SSH Username, root - default')
+    parser.add_argument('-p', '--password', type=str, default=None, help='SSH Password? default - None')
+    parser.add_argument('-k', '--key', type=str, default=None, help='Path to ssh private key, default = None')
 
-a = Audit(hostname=test_hostname, username=ssh_user, password=ssh_password)
-report = a.execute_queries()
-a.printReport(report)
+    args = parser.parse_args()
+
+    ssh_client = SSHUtil(hostname=args.server, username=args.user, password=args.password, key_filename=args.key)
+    a = Audit(ssh_client=ssh_client)
+    report = a.execute_queries()
+    a.printReport(report)

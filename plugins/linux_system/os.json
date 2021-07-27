@@ -1,8 +1,9 @@
 {
   "queries":
   [
-    {"command": "uname -mrs",
-      "name": "OS",
+    {
+      "command": "uname -mrs",
+      "category": "OS",
       "params": [
         {
           "name": "Operating system",
@@ -10,8 +11,9 @@
         }
       ]
     },
-    {"command": "uname -m",
-      "name": "OS",
+    {
+      "command": "uname -m",
+      "category": "OS",
       "params": [
         {
           "name": "Architecture",
@@ -19,8 +21,9 @@
         }
       ]
     },
-    {"command": "awk '{print int($1/86400)\"d:\"int($1/3600)\"h:\"int(($1%3600)/60)\"m:\"int($1%60)\"s\"}' /proc/uptime",
-      "name": "OS",
+    {
+      "command": "awk '{print int($1/86400)\"d:\"int($1/3600)\"h:\"int(($1%3600)/60)\"m:\"int($1%60)\"s\"}' /proc/uptime",
+      "category": "OS",
       "params": [
         {
           "name": "Uptime",

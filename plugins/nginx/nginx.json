@@ -2,12 +2,69 @@
   "queries":
   [
     {"command": "nginx -T",
-      "name": "nginx",
+      "category": "nginx",
       "params": [
         {
           "name": "worker_processes",
           "regex": "worker_processes\\s+(.+);",
-          "normal_states": ["auto"]
+          "warnings": ["value!='auto'"]
+        },
+        {
+          "name": "worker_connections",
+          "regex": "worker_connections\\s+(.+);",
+          "warnings": ["value<33"]
+        },
+        {
+          "name": "sendfile",
+          "regex": "sendfile\\s+(.+);"
+        },
+        {
+          "name": "tcp_nodelay",
+          "regex": "tcp_nodelay\\s+(.+);"
+        },
+        {
+          "name": "tcp_nopush",
+          "regex": "tcp_nopush\\s+(.+);"
+        },
+        {
+          "name": "gzip",
+          "regex": "gzip\\s+(.+);"
+        },
+        {
+          "name": "gzip_disable",
+          "regex": "gzip_disable\\s+(.+);"
+        },
+        {
+          "name": "gzip_comp_level",
+          "regex": "gzip_comp_level\\s+(.+);"
+        },
+        {
+          "name": "gzip_types",
+          "regex": "gzip_types\\s+(.+);"
+        },
+        {
+          "name": "keepalive_timeout",
+          "regex": "keepalive_timeout\\s+(.+);"
+        },
+        {
+          "name": "keepalive_requests",
+          "regex": "keepalive_requests\\s+(.+);"
+        },
+        {
+          "name": "reset_timedout_connection",
+          "regex": "reset_timedout_connection\\s+(.+);"
+        },
+        {
+          "name": "client_body_timeout",
+          "regex": "client_body_timeout\\s+(.+);"
+        },
+        {
+          "name": "send_timeout",
+          "regex": "send_timeout\\s+(.+);"
+        },
+        {
+          "name": "client_max_body_size",
+          "regex": "client_max_body_size\\s+(.+);"
         }
       ]
     }

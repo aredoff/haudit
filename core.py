@@ -1,4 +1,5 @@
 import re
+import ast
 
 
 def import_class_from_file(file, classname):
@@ -37,10 +38,47 @@ class FilterClass():
     def __init__(self):
         pass
 
+
+# class ParametrReport():
+#     def __init__(self, name: str, value: str, status: bool = None, category: str = None, warnings: list = None):
+#         self.name = name
+#         self.category = category
+#         self.value = value
+#         if status:
+#             self.status = True
+#         else:
+#             self.status = False
+
+class Validator():
+    @classmethod
+    def validate(cls, val, formula):
+        value = cls.typeСast(val)
+        _warningResult = eval(formula)
+        # print(val, formula, _warningResult)
+        if _warningResult:
+            return False
+        else:
+            return True
+
+    @classmethod
+    def typeСast(cls, value):
+        try:
+            return ast.literal_eval(value) #num
+        except:
+            return value #str
+
+
 class Parametr():
-    def __init__(self, name: str, regex: str):
+    def __init__(self, name: str, regex: str, category: str = None, warnings: list = None, value: str = None):
         self.name = name
+        self.category = category
         self.regex = re.compile(regex)
+        self.value = None
+        self.baseunit = None
+        if warnings:
+            self.warnings = warnings
+        else:
+            self.warnings = []
 
     def __str__(self):
         return 'Plugin(' + self.name + ')'
@@ -48,7 +86,7 @@ class Parametr():
     def __repr__(self):
         return 'Plugin(' + self.name + ')'
 
-    def findall(self, text):
+    def find(self, text):
         _ = self.regex.findall(text)
         if _:
             return _[0]
@@ -57,9 +95,11 @@ class Parametr():
 
 
 
+
+
 class Query():
     def __init__(self, **kwargs):
-        self.name = kwargs['name']
+        self.category = kwargs['category']
         self.command = kwargs['command']
         self.params = []
         self.mods = []
@@ -97,10 +137,6 @@ class Query():
                         'status': 'error',
                         'name': parameter['name'],
                     })
-            # if 'mods' in querie:
-            #     for mod in querie['mods']:
-            #         querie_report['params'] = self._executeMod(querie_report['params'], os.path.join(os.getcwd(), plugin['folder'] + '/mods/' + mod) )
-
         else:
             self.report['status'] = 'error'
         return self.report

@@ -2,7 +2,7 @@
   "queries":
   [
     {"command": "cat /proc/meminfo",
-      "name": "Memory",
+      "category": "Memory",
       "params": [
         {
           "name": "MemTotal",

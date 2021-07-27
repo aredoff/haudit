@@ -1,0 +1,222 @@
+{
+  "queries":
+  [
+    {"command": "mysql -sN -e \"SHOW VARIABLES;\" 2>/dev/null",
+      "category": "mysql",
+      "params": [
+        {
+          "name": "default_storage_engine",
+          "regex": "default_storage_engine\\s(.*)\\n"
+        },
+        {
+          "name": "collation_server",
+          "regex": "collation_server\\s(.*)\\n"
+        },
+        {
+          "name": "character_set_server",
+          "regex": "character_set_server\\s(.*)\\n"
+        },
+        {
+          "name": "local_infile",
+          "regex": "local_infile\\s(.*)\\n"
+        },
+        {
+          "name": "skip_external_locking",
+          "regex": "skip_external_locking\\s(.*)\\n"
+        },
+        {
+          "name": "concurrent_insert",
+          "regex": "concurrent_insert\\s(.*)\\n"
+        },
+        {
+          "name": "optimizer_search_depth",
+          "regex": "optimizer_search_depth\\s(.*)\\n"
+        },
+        {
+          "name": "max_length_for_sort_data",
+          "regex": "max_length_for_sort_data\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_strict_mode",
+          "category": "INNODB",
+          "regex": "innodb_strict_mode\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_autoinc_lock_mode",
+          "category": "INNODB",
+          "regex": "innodb_autoinc_lock_mode\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_buffer_pool_size",
+          "category": "INNODB",
+          "regex": "innodb_buffer_pool_size\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_buffer_pool_instances",
+          "category": "INNODB",
+          "regex": "innodb_buffer_pool_instances\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_log_file_size",
+          "category": "INNODB",
+          "regex": "innodb_log_file_size\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_log_buffer_size",
+          "category": "INNODB",
+          "regex": "innodb_log_buffer_size\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_file_per_table",
+          "category": "INNODB",
+          "regex": "innodb_file_per_table\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_flush_method",
+          "category": "INNODB",
+          "regex": "innodb_flush_method\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_flush_log_at_trx_commit",
+          "category": "INNODB",
+          "regex": "innodb_flush_log_at_trx_commit\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_thread_concurrency",
+          "category": "INNODB",
+          "regex": "innodb_thread_concurrency\\s(.*)\\n"
+        },
+        {
+          "name": "innodb_doublewrite",
+          "category": "INNODB",
+          "regex": "innodb_doublewrite\\s(.*)\\n"
+        },
+        {
+          "name": "log_error",
+          "category": "LOGGING",
+          "regex": "log_error\\s(.*)\\n"
+        },
+        {
+          "name": "log_warnings",
+          "category": "LOGGING",
+          "regex": "log_warnings\\s(.*)\\n"
+        },
+        {
+          "name": "tmp_table_size",
+          "category": "OTHER",
+          "regex": "tmp_table_size\\s(.*)\\n"
+        },
+        {
+          "name": "max_heap_table_size",
+          "category": "OTHER",
+          "regex": "max_heap_table_size\\s(.*)\\n"
+        },
+        {
+          "name": "query_cache_type",
+          "category": "OTHER",
+          "regex": "query_cache_type\\s(.*)\\n"
+        },
+        {
+          "name": "query_cache_size",
+          "category": "OTHER",
+          "regex": "query_cache_size\\s(.*)\\n"
+        },
+        {
+          "name": "query_cache_limit",
+          "category": "OTHER",
+          "regex": "query_cache_limit\\s(.*)\\n"
+        },
+        {
+          "name": "max_connections",
+          "category": "OTHER",
+          "regex": "max_connections\\s(.*)\\n"
+        },
+        {
+          "name": "thread_cache_size",
+          "category": "OTHER",
+          "regex": "thread_cache_size\\s(.*)\\n"
+        },
+        {
+          "name": "open_files_limit",
+          "category": "OTHER",
+          "regex": "open_files_limit\\s(.*)\\n"
+        },
+        {
+          "name": "table_open_cache",
+          "category": "OTHER",
+          "regex": "table_open_cache\\s(.*)\\n"
+        },
+        {
+          "name": "table_definition_cache",
+          "category": "OTHER",
+          "regex": "table_definition_cache\\s(.*)\\n"
+        },
+        {
+          "name": "join_buffer_size",
+          "category": "OTHER",
+          "regex": "join_buffer_size\\s(.*)\\n"
+        },
+        {
+          "name": "sort_buffer_size",
+          "category": "OTHER",
+          "regex": "sort_buffer_size\\s(.*)\\n"
+        },
+        {
+          "name": "optimizer_switch",
+          "category": "OTHER",
+          "regex": "optimizer_switch\\s(.*)\\n"
+        },
+        {
+          "name": "bind_address",
+          "category": "SECURITY",
+          "regex": "bind_address\\s(.*)\\n"
+        },
+        {
+          "name": "max_allowed_packet",
+          "category": "SECURITY",
+          "regex": "max_allowed_packet\\s(.*)\\n"
+        },
+        {
+          "name": "skip_name_resolve",
+          "category": "SECURITY",
+          "regex": "skip_name_resolve\\s(.*)\\n"
+        },
+        {
+          "name": "max_connect_errors",
+          "category": "SECURITY",
+          "regex": "max_connect_errors\\s(.*)\\n"
+        },
+        {
+          "name": "sql_mode",
+          "category": "SECURITY",
+          "regex": "sql_mode\\s(.*)\\n"
+        },
+        {
+          "name": "sysdate_is_now",
+          "category": "SECURITY",
+          "regex": "sysdate_is_now\\s(.*)\\n"
+        },
+        {
+          "name": "transaction_isolation",
+          "category": "SECURITY",
+          "regex": "transaction_isolation\\s(.*)\\n"
+        },
+        {
+          "name": "nice",
+          "category": "SAFE",
+          "regex": "nice\\s(.*)\\n"
+        },
+        {
+          "name": "table_open_cache",
+          "category": "SAFE",
+          "regex": "table_open_cache\\s(.*)\\n"
+        },
+        {
+          "name": "open_files_limit",
+          "category": "SAFE",
+          "regex": "open_files_limit\\s(.*)\\n"
+        }
+      ]
+    }
+  ]
+}

@@ -2,7 +2,7 @@
   "queries":
   [
     {"command": "cat /proc/cpuinfo | grep processor | wc -l",
-      "name": "CPU",
+      "category": "CPU",
       "params": [
         {
           "name": "Count",

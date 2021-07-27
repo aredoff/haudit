@@ -1,6 +1,6 @@
-def bytes_sizeof_fmt(num, suffix='B'):
+def bytes_sizeof_fmt(num, factor=1024.0, suffix='B'):
     for unit in ['','K','M','G','T','P','E','Z']:
-        if abs(num) < 1024.0:
-            return "%3.1f%s%s" % (num, unit, suffix)
-        num /= 1024.0
-    return "%.1f%s%s" % (num, 'Yi', suffix)
+        if abs(num) < factor:
+            return "%3.1f%s" % (num, unit ), suffix
+        num /= factor
+    return "%.1f%s" % (num, 'Yi'), suffix

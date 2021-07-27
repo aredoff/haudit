@@ -1,8 +1,9 @@
 {
   "queries":
   [
-    {"command": "df -H | tail -n +2 | grep -vE '^Filesystem|udev|tmpfs|cdrom' | awk '{ print $1 \" \" $3 \" \" $4 \" \" $5 }'",
-      "name": "Disks",
+    {
+      "command": "df -H | tail -n +2 | grep -vE '^Filesystem|udev|tmpfs|cdrom|overlay' | awk '{ print $1 \" \" $2 \" \" $4 \" \" $5 }'",
+      "category": "Disks",
       "explorers": [
         "disks"
       ]

@@ -12,23 +12,27 @@
         {
           "name": "worker_connections",
           "regex": "worker_connections\\s+(.+);",
-          "warnings": ["value<33"]
+          "warnings": ["value<1024","value>2048"]
         },
         {
           "name": "sendfile",
-          "regex": "sendfile\\s+(.+);"
+          "regex": "sendfile\\s+(.+);",
+          "warnings": ["value!='on'"]
         },
         {
           "name": "tcp_nodelay",
-          "regex": "tcp_nodelay\\s+(.+);"
+          "regex": "tcp_nodelay\\s+(.+);",
+          "warnings": ["value!='on'"]
         },
         {
           "name": "tcp_nopush",
-          "regex": "tcp_nopush\\s+(.+);"
+          "regex": "tcp_nopush\\s+(.+);",
+          "warnings": ["value!='on'"]
         },
         {
           "name": "gzip",
-          "regex": "gzip\\s+(.+);"
+          "regex": "gzip\\s+(.+);",
+          "warnings": ["value!='on'"]
         },
         {
           "name": "gzip_disable",

@@ -58,14 +58,13 @@ class Audit():
             for query in plugin_report['queries']:
                 for parametr in query['params']:
                     if parametr['status'] == 'ok':
-                        if 'baseunit' in parametr:
-                            baseunit = parametr['baseunit']
+                        if 'pretty_value' in parametr:
+                            value = parametr['pretty_value']
                         else:
-                            baseunit = ''
-                        if parametr['validate']:
-                            value = "{}{}".format(parametr['value'], baseunit)
-                        else:
-                            value = "[yellow]{}{}[/yellow]".format(parametr['value'], baseunit)
+                            value = parametr['value']
+
+                        if not parametr['validate']:
+                            value = "[yellow]{}[/yellow]".format(value)
                     else:
                         value = "[red]Error[/red]"
                     category = query['category']

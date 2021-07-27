@@ -39,26 +39,19 @@ class FilterClass():
         pass
 
 
-# class ParametrReport():
-#     def __init__(self, name: str, value: str, status: bool = None, category: str = None, warnings: list = None):
-#         self.name = name
-#         self.category = category
-#         self.value = value
-#         if status:
-#             self.status = True
-#         else:
-#             self.status = False
-
 class Validator():
     @classmethod
     def validate(cls, val, formula):
-        value = cls.typeСast(val)
-        _warningResult = eval(formula)
-        # print(val, formula, _warningResult)
-        if _warningResult:
-            return False
-        else:
-            return True
+        try:
+            value = cls.typeСast(val)
+            _warningResult = eval(formula)
+            if _warningResult:
+                return False
+            else:
+                return True
+        except:
+            print('Error eval in:', val, '->', formula)
+            exit()
 
     @classmethod
     def typeСast(cls, value):

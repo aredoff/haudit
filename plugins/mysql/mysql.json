@@ -1,16 +1,31 @@
 {
   "queries":
-  [
+  [ 
+    {"command": "mysql -sN -e \"SHOW VARIABLES\" | grep datadir | awk '{print $2}'| xargs du -sh | awk '{print $1}'",
+      "category": "mysql",
+      "params": [
+        {
+          "name": "DataDir Sizes",
+          "regex": ".*"
+        }
+      ]
+    },
     {"command": "mysql -sN -e \"SHOW VARIABLES;\" 2>/dev/null",
       "category": "mysql",
       "params": [
+        {
+          "name": "version",
+          "regex": "\\nversion\\s([\\d\\.]+)\\.",
+          "warnings": ["5.0<value<5.7", "8.0<=value<=8.2"]
+        },
         {
           "name": "default_storage_engine",
           "regex": "default_storage_engine\\s(.*)\\n"
         },
         {
           "name": "collation_server",
-          "regex": "collation_server\\s(.*)\\n"
+          "regex": "collation_server\\s(.*)\\n",
+          "warnings": ["'utf8' not in value"]
         },
         {
           "name": "character_set_server",
@@ -74,7 +89,8 @@
         {
           "name": "innodb_flush_method",
           "category": "INNODB",
-          "regex": "innodb_flush_method\\s(.*)\\n"
+          "regex": "innodb_flush_method\\s(.*)\\n",
+          "warnings": ["value not in ['O_DIRECT1', 'O_DIRECT2']"]
         },
         {
           "name": "innodb_flush_log_at_trx_commit",
@@ -169,7 +185,8 @@
         {
           "name": "bind_address",
           "category": "SECURITY",
-          "regex": "bind_address\\s(.*)\\n"
+          "regex": "bind_address\\s(.*)\\n",
+          "warnings": ["value!='127.0.0.1'"]
         },
         {
           "name": "max_allowed_packet",
@@ -216,7 +233,8 @@
           "category": "SAFE",
           "regex": "open_files_limit\\s(.*)\\n"
         }
-      ]
+      ],
+       "mods":["mysql_bytes"]
     }
   ]
 }

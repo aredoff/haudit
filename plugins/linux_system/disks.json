@@ -2,7 +2,7 @@
   "queries":
   [
     {
-      "command": "df -H | tail -n +2 | grep -vE '^Filesystem|udev|tmpfs|cdrom|overlay' | awk '{ print $1 \" \" $2 \" \" $4 \" \" $5 }'",
+      "command": "df -H | tail -n +2 | grep -vE '^Filesystem|udev|tmpfs|cdrom|overlay|/dev/loop' | awk '{ print $1 \" \" $2 \" \" $4 \" \" $5 }'",
       "category": "Disks",
       "explorers": [
         "disks"

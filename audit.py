@@ -5,6 +5,7 @@ from core import Plugin, Query, Parametr, Validator
 from rich.console import Console
 from rich.table import Column, Table
 from rich.panel import Panel
+from pdf import PdfPrinter
 
 
 class Audit():
@@ -23,7 +24,13 @@ class Audit():
                         plugin_jsons_data = json.loads(f.read())
                         if 'queries' in plugin_jsons_data:
                             for query in plugin_jsons_data['queries']:
-                                _q = Query(category=query['category'], command=query['command'])
+                                if 'command' in query:
+                                    _q = Query(category=query['category'], command=query['command'])
+                                elif 'input' in query:
+                                    _q = Query(category=query['category'], input=query['input'])
+                                else:
+                                    print('File:{} Error: In query mast be "command" or "input"!'.format(file))
+                                    exit()
                                 if 'params' in query:
                                     for param in query['params']:
                                         _p = Parametr(name=param['name'], regex=param['regex'])
@@ -46,6 +53,9 @@ class Audit():
 
 
     def printReport(self, plugins_report):
+        # print(plugins_report)
+        # exit()
+
         self.console.print("[bold red on white]                                  ")
         self.console.print("[bold white on red]               Audit              ")
         self.console.print("[bold red on white]                                  ")
@@ -76,7 +86,45 @@ class Audit():
                         parametr['name'],
                         value,
                     )
-            self.console.print(Panel.fit(queries_table, title=plugin_report['name']))
+            if queries_table.rows:
+                self.console.print(Panel.fit(queries_table, title=plugin_report['name']))
+            else:
+                self.console.print("[red][Plugin <{}> did not receive data][/red]".format(plugin_report['name']))
+
+
+    def printPdfReport(self, plugins_report, path_pdf_file):
+        pdf = PdfPrinter()
+        table_report = []
+        for plugin_report in plugins_report:
+            table_plugin_report = {
+                'name': plugin_report['name'],
+                'parametres': []
+            }
+            for query in plugin_report['queries']:
+                for parametr in query['params']:
+                    if parametr['status'] == 'ok':
+                        if 'pretty_value' in parametr:
+                            value = parametr['pretty_value']
+                        else:
+                            value = parametr['value']
+
+                        if not parametr['validate']:
+                            value = "<span class='warning'><b>{}</b></span>".format(value)
+                        category = query['category']
+                        if 'category' in parametr:
+                            if parametr['category']:
+                                category = parametr['category']
+                        table_plugin_report['parametres'].append({
+                            'category': category,
+                            'name': parametr['name'],
+                            'value': value,
+                        })
+
+            if table_plugin_report['parametres']:
+                table_report.append(table_plugin_report)
+
+        pdf.print(table_report, path_pdf_file)
+
 
 
     def execute_queries(self):
@@ -87,7 +135,14 @@ class Audit():
                 'queries': [],
             }
             for query in plugin.queries:
-                command_output = self.sshClient.execute_command(query.command)
+                if query.command:
+                    command_output = self.sshClient.execute_command(query.command)
+                elif query.input:
+                    file_path = os.path.abspath('plugins/{}/inputs/{}'.format(plugin.name, query.input))
+                    command_output = self.sshClient.execute_file(file_path)
+                else:
+                    print('Error, query have not command or input')
+                    exit()
                 query_report = {
                     'status': 'ok',
                     'category': query.category,
@@ -130,10 +185,14 @@ class Audit():
                         param['validate'] = True
                         if 'warnings' in param:
                             for warning in param['warnings']:
-                                validate = Validator.validate(param['value'], warning)
-                                if not validate:
-                                    param['validate'] = False
-                                    break
+                                try:
+                                    validate = Validator.validate(param['value'], warning)
+                                    if not validate:
+                                        param['validate'] = False
+                                        break
+                                except:
+                                    print('Error eval in:', plugin.name,param['name'], param['value'], '->', warning)
+                                    exit()
 
 
                 plugin_report['queries'].append(query_report)

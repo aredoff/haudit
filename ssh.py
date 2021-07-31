@@ -1,4 +1,6 @@
 import paramiko
+import time
+import os
 
 class SSHUtil(object):
     def __init__(self, hostname, username, password=None, port=22, key_filename=None):
@@ -34,3 +36,15 @@ class SSHUtil(object):
         sftp = self.ssh.open_sftp()
         sftp.get(remote_file_path, local_file_path)
         sftp.close()
+
+    def execute_file(self, local_file_path):
+        timestamp = int(time.time())
+        file_name = os.path.basename(local_file_path)
+        remote_file_path = '/var/tmp/{}_{}'.format(timestamp, file_name)
+        sftp = self.ssh.open_sftp()
+        sftp.put(local_file_path, remote_file_path)
+        sftp.chmod(remote_file_path, 0o700)
+        ouptut = self.execute_command(remote_file_path)
+        sftp.remove(remote_file_path)
+        sftp.close()
+        return ouptut

@@ -1,7 +1,7 @@
 {
   "queries":
   [
-    {"command": "cat /proc/cpuinfo | grep processor | wc -l",
+    { "command": "cat /proc/cpuinfo | grep processor | wc -l",
       "category": "CPU",
       "params": [
         {

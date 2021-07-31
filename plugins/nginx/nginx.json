@@ -40,7 +40,8 @@
         },
         {
           "name": "gzip_comp_level",
-          "regex": "gzip_comp_level\\s+(.+);"
+          "regex": "gzip_comp_level\\s+(.+);",
+          "warnings": ["value<=5"]
         },
         {
           "name": "gzip_types",
@@ -48,23 +49,28 @@
         },
         {
           "name": "keepalive_timeout",
-          "regex": "keepalive_timeout\\s+(.+);"
+          "regex": "keepalive_timeout\\s+(.+)s;",
+          "warnings": ["value>30"]
         },
         {
           "name": "keepalive_requests",
-          "regex": "keepalive_requests\\s+(.+);"
+          "regex": "keepalive_requests\\s+(.+);",
+          "warnings": ["value>100"]
         },
         {
           "name": "reset_timedout_connection",
-          "regex": "reset_timedout_connection\\s+(.+);"
+          "regex": "reset_timedout_connection\\s+(.+);",
+          "warnings": ["value!='on'"]
         },
         {
           "name": "client_body_timeout",
-          "regex": "client_body_timeout\\s+(.+);"
+          "regex": "client_body_timeout\\s+(.+)s;",
+          "warnings": ["value>10"]
         },
         {
           "name": "send_timeout",
-          "regex": "send_timeout\\s+(.+);"
+          "regex": "send_timeout\\s+(.+)s;",
+          "warnings": ["value>5"]
         },
         {
           "name": "client_max_body_size",

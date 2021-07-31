@@ -27,9 +27,9 @@ class Explorer(ExplorerClass):
                 params.append({
                     'status': 'ok',
                     'name': disk_name + ' usage',
+                    'pretty_value': str(disk_perc) + '%',
                     'value': str(disk_perc),
                     'warnings': ['value>90'],
-                    'baseunit': '%',
                 })
             except:
                 continue

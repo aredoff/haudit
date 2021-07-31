@@ -1,0 +1,18 @@
+{
+  "queries":
+  [
+    {"command": "php -i",
+      "category": "php",
+      "params": [
+        {
+          "name": "PHP Version",
+          "regex": "PHP Version =>\\s(\\d.+)\\n"
+        },
+        {
+          "name": "post_max_size",
+          "regex": "post_max_size =>\\s(\\d+.)\\s=>"
+        }
+      ]
+    }
+  ]
+}

@@ -42,16 +42,12 @@ class FilterClass():
 class Validator():
     @classmethod
     def validate(cls, val, formula):
-        try:
-            value = cls.typeСast(val)
-            _warningResult = eval(formula)
-            if _warningResult:
-                return False
-            else:
-                return True
-        except:
-            print('Error eval in:', val, '->', formula)
-            exit()
+        value = cls.typeСast(val)
+        _warningResult = eval(formula)
+        if _warningResult:
+            return False
+        else:
+            return True
 
     @classmethod
     def typeСast(cls, value):
@@ -93,7 +89,14 @@ class Parametr():
 class Query():
     def __init__(self, **kwargs):
         self.category = kwargs['category']
-        self.command = kwargs['command']
+        if 'command' in kwargs:
+            self.command = kwargs['command']
+        else:
+            self.command = None
+        if 'input' in kwargs:
+            self.input = kwargs['input']
+        else:
+            self.input = None
         self.params = []
         self.mods = []
         self.explorers = []

@@ -1,0 +1,39 @@
+{
+  "queries":
+  [
+    {"command": "if [ -f /usr/sbin/apachectl ] ; then find `apachectl -V | awk -F '\"' ' /'HTTPD_ROOT'/ {print $2}'` -type f -exec cat {} \\; ; fi",
+      "category": "apache",
+      "params": [
+        {
+          "name": "StartServers",
+          "regex": "StartServers\\s(\\d+)"
+        },
+        {
+          "name": "MinSpareServers",
+          "regex": "MinSpareServers\\s(\\d+)"
+        },
+        {
+          "name": "MaxSpareServers",
+          "regex": "MaxSpareServers\\s(\\d+)"
+        },
+        {
+          "name": "MaxClients",
+          "regex": "MaxClients\\s(\\d+)"
+        },
+        {
+          "name": "MaxSpareServers",
+          "regex": "MaxSpareServers\\s(\\d+)"
+        }
+      ]
+    },
+    {"command": "if [ -f /usr/sbin/apachectl ] ; then ps aux | grep 'httpd' | awk '{print $6/1024;}' | awk '{avg += ($1 - avg) / NR;} END {print avg \" MB\";}' ; fi",
+      "category": "apache",
+      "params": [
+        {
+          "name": "Avg used memory per\\proc ",
+          "regex": ".*"
+        }
+      ]
+    }
+  ]
+}

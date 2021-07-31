@@ -1,0 +1,11 @@
+{
+  "queries":
+  [
+    {"command": "ss -utln | awk '{print $1 \" \" $5}' | grep -v '\\[::' | sed s/*/0.0.0.0/ | uniq | tail -n +2",
+      "category": "security",
+      "explorers": [
+        "open_sockets"
+      ]
+    }
+  ]
+}

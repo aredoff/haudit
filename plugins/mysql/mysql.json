@@ -16,11 +16,12 @@
         {
           "name": "version",
           "regex": "\\nversion\\s([\\d\\.]+)\\.",
-          "warnings": ["5.0<value<5.7", "8.0<=value<=8.2"]
+          "warnings": ["5.0<value<5.7", "10<=value<=10.2"]
         },
         {
           "name": "default_storage_engine",
-          "regex": "default_storage_engine\\s(.*)\\n"
+          "regex": "default_storage_engine\\s(.*)\\n",
+          "warnings": ["value!='InnoDB'"]
         },
         {
           "name": "collation_server",
@@ -29,83 +30,99 @@
         },
         {
           "name": "character_set_server",
-          "regex": "character_set_server\\s(.*)\\n"
+          "regex": "character_set_server\\s(.*)\\n",
+          "warnings": ["'utf8' not in value"]
         },
         {
           "name": "local_infile",
-          "regex": "local_infile\\s(.*)\\n"
+          "regex": "local_infile\\s(.*)\\n",
+          "warnings": ["value in ['OFF', 0]"]
         },
         {
           "name": "skip_external_locking",
-          "regex": "skip_external_locking\\s(.*)\\n"
+          "regex": "skip_external_locking\\s(.*)\\n",
+          "warnings": ["value in ['ON', 1]"]
         },
         {
           "name": "concurrent_insert",
-          "regex": "concurrent_insert\\s(.*)\\n"
+          "regex": "concurrent_insert\\s(.*)\\n",
+          "warnings": ["value in ['OFF', 0]"]
         },
         {
           "name": "optimizer_search_depth",
-          "regex": "optimizer_search_depth\\s(.*)\\n"
+          "regex": "optimizer_search_depth\\s(.*)\\n",
+          "warnings": ["value>8"]
         },
         {
           "name": "max_length_for_sort_data",
-          "regex": "max_length_for_sort_data\\s(.*)\\n"
+          "regex": "max_length_for_sort_data\\s(.*)\\n",
+          "warnings": ["value<100000"]
         },
         {
           "name": "innodb_strict_mode",
           "category": "INNODB",
-          "regex": "innodb_strict_mode\\s(.*)\\n"
+          "regex": "innodb_strict_mode\\s(.*)\\n",
+          "warnings": ["value in ['ON', 1]"]
         },
         {
           "name": "innodb_autoinc_lock_mode",
           "category": "INNODB",
-          "regex": "innodb_autoinc_lock_mode\\s(.*)\\n"
+          "regex": "innodb_autoinc_lock_mode\\s(.*)\\n",
+          "warnings": ["value!=2"]
         },
         {
           "name": "innodb_buffer_pool_size",
           "category": "INNODB",
-          "regex": "innodb_buffer_pool_size\\s(.*)\\n"
+          "regex": "innodb_buffer_pool_size\\s(.*)\\n",
+          "warnings": ["value<=536870912"]
         },
         {
           "name": "innodb_buffer_pool_instances",
           "category": "INNODB",
-          "regex": "innodb_buffer_pool_instances\\s(.*)\\n"
+          "regex": "innodb_buffer_pool_instances\\s(.*)\\n",
+          "warnings": ["value<2"]
         },
         {
           "name": "innodb_log_file_size",
           "category": "INNODB",
-          "regex": "innodb_log_file_size\\s(.*)\\n"
+          "regex": "innodb_log_file_size\\s(.*)\\n",
+          "warnings": ["value<=134217728"]
         },
         {
           "name": "innodb_log_buffer_size",
           "category": "INNODB",
-          "regex": "innodb_log_buffer_size\\s(.*)\\n"
+          "regex": "innodb_log_buffer_size\\s(.*)\\n",
+          "warnings": ["value<=4194304"]
         },
         {
           "name": "innodb_file_per_table",
           "category": "INNODB",
-          "regex": "innodb_file_per_table\\s(.*)\\n"
+          "regex": "innodb_file_per_table\\s(.*)\\n",
+          "warnings": ["value in ['OFF', 0]"]
         },
         {
           "name": "innodb_flush_method",
           "category": "INNODB",
           "regex": "innodb_flush_method\\s(.*)\\n",
-          "warnings": ["value not in ['O_DIRECT1', 'O_DIRECT2']"]
+          "warnings": ["value not in ['O_DIRECT']"]
         },
         {
           "name": "innodb_flush_log_at_trx_commit",
           "category": "INNODB",
-          "regex": "innodb_flush_log_at_trx_commit\\s(.*)\\n"
+          "regex": "innodb_flush_log_at_trx_commit\\s(.*)\\n",
+          "warnings": ["value!=2"]
         },
         {
           "name": "innodb_thread_concurrency",
           "category": "INNODB",
-          "regex": "innodb_thread_concurrency\\s(.*)\\n"
+          "regex": "innodb_thread_concurrency\\s(.*)\\n",
+          "warnings": ["value in ['ON', 1]"]
         },
         {
           "name": "innodb_doublewrite",
           "category": "INNODB",
-          "regex": "innodb_doublewrite\\s(.*)\\n"
+          "regex": "innodb_doublewrite\\s(.*)\\n",
+          "warnings": ["value in ['OFF', 0]"]
         },
         {
           "name": "log_error",
@@ -115,67 +132,80 @@
         {
           "name": "log_warnings",
           "category": "LOGGING",
-          "regex": "log_warnings\\s(.*)\\n"
+          "regex": "log_warnings\\s(.*)\\n",
+          "warnings": ["value!=2"]
         },
         {
           "name": "tmp_table_size",
           "category": "OTHER",
-          "regex": "tmp_table_size\\s(.*)\\n"
+          "regex": "tmp_table_size\\s(.*)\\n",
+          "warnings": ["value<67108864"]
         },
         {
           "name": "max_heap_table_size",
           "category": "OTHER",
-          "regex": "max_heap_table_size\\s(.*)\\n"
+          "regex": "max_heap_table_size\\s(.*)\\n",
+          "warnings": ["value<67108864"]
         },
         {
           "name": "query_cache_type",
           "category": "OTHER",
-          "regex": "query_cache_type\\s(.*)\\n"
+          "regex": "query_cache_type\\s(.*)\\n",
+          "warnings": ["value in ['OFF', 0]"]
         },
         {
           "name": "query_cache_size",
           "category": "OTHER",
-          "regex": "query_cache_size\\s(.*)\\n"
+          "regex": "query_cache_size\\s(.*)\\n",
+          "warnings": ["value<16777216"]
         },
         {
           "name": "query_cache_limit",
           "category": "OTHER",
-          "regex": "query_cache_limit\\s(.*)\\n"
+          "regex": "query_cache_limit\\s(.*)\\n",
+          "warnings": ["value<8388608"]
         },
         {
           "name": "max_connections",
           "category": "OTHER",
-          "regex": "max_connections\\s(.*)\\n"
+          "regex": "max_connections\\s(.*)\\n"          ,
+          "warnings": ["value<256","value>512"]
         },
         {
           "name": "thread_cache_size",
           "category": "OTHER",
-          "regex": "thread_cache_size\\s(.*)\\n"
+          "regex": "thread_cache_size\\s(.*)\\n",
+          "warnings": ["value<50"]
         },
         {
           "name": "open_files_limit",
           "category": "OTHER",
-          "regex": "open_files_limit\\s(.*)\\n"
+          "regex": "open_files_limit\\s(.*)\\n",
+          "warnings": ["value<65535"]
         },
         {
           "name": "table_open_cache",
           "category": "OTHER",
-          "regex": "table_open_cache\\s(.*)\\n"
+          "regex": "table_open_cache\\s(.*)\\n",
+          "warnings": ["value<6144"]
         },
         {
           "name": "table_definition_cache",
           "category": "OTHER",
-          "regex": "table_definition_cache\\s(.*)\\n"
+          "regex": "table_definition_cache\\s(.*)\\n",
+          "warnings": ["value<4096"]
         },
         {
           "name": "join_buffer_size",
           "category": "OTHER",
-          "regex": "join_buffer_size\\s(.*)\\n"
+          "regex": "join_buffer_size\\s(.*)\\n",
+          "warnings": ["value<8388608"]
         },
         {
           "name": "sort_buffer_size",
           "category": "OTHER",
-          "regex": "sort_buffer_size\\s(.*)\\n"
+          "regex": "sort_buffer_size\\s(.*)\\n",
+          "warnings": ["value<8388608"]
         },
         {
           "name": "optimizer_switch",
@@ -186,22 +216,31 @@
           "name": "bind_address",
           "category": "SECURITY",
           "regex": "bind_address\\s(.*)\\n",
-          "warnings": ["value!='127.0.0.1'"]
+          "warnings": ["value not in ['127.0.0.1', 'localhost']"]
+        },
+        {
+          "name": "port",
+          "category": "SECURITY",
+          "regex": "\\nport\\s(.*)\\n",
+          "warnings": ["value!=3306"]
         },
         {
           "name": "max_allowed_packet",
           "category": "SECURITY",
-          "regex": "max_allowed_packet\\s(.*)\\n"
+          "regex": "max_allowed_packet\\s(.*)\\n",
+          "warnings": ["value>536870912"]
         },
         {
           "name": "skip_name_resolve",
           "category": "SECURITY",
-          "regex": "skip_name_resolve\\s(.*)\\n"
+          "regex": "skip_name_resolve\\s(.*)\\n",
+          "warnings": ["value in ['OFF', 0]"]
         },
         {
           "name": "max_connect_errors",
           "category": "SECURITY",
-          "regex": "max_connect_errors\\s(.*)\\n"
+          "regex": "max_connect_errors\\s(.*)\\n",
+          "warnings": ["value<100000"]
         },
         {
           "name": "sql_mode",
@@ -209,32 +248,26 @@
           "regex": "sql_mode\\s(.*)\\n"
         },
         {
-          "name": "sysdate_is_now",
-          "category": "SECURITY",
-          "regex": "sysdate_is_now\\s(.*)\\n"
-        },
-        {
           "name": "transaction_isolation",
           "category": "SECURITY",
-          "regex": "transaction_isolation\\s(.*)\\n"
-        },
-        {
-          "name": "nice",
-          "category": "SAFE",
-          "regex": "nice\\s(.*)\\n"
+          "regex": "transaction_isolation\\s(.*)\\n",
+          "warnings": ["value!='READ-COMMITTED'"]
         },
         {
           "name": "table_open_cache",
           "category": "SAFE",
-          "regex": "table_open_cache\\s(.*)\\n"
+          "regex": "table_open_cache\\s(.*)\\n",
+          "warnings": ["value<6144"]
         },
         {
           "name": "open_files_limit",
           "category": "SAFE",
-          "regex": "open_files_limit\\s(.*)\\n"
+          "regex": "open_files_limit\\s(.*)\\n",
+          "warnings": ["value<30000"]
         }
       ],
-       "mods":["mysql_bytes"]
+
+      "mods":["mysql_bytes"]
     }
   ]
 }
